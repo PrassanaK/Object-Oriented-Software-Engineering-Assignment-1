@@ -1,0 +1,43 @@
+----------Clear and distinct package/class/interface/method responsibilities-------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+For this project I have a class structure representing a tree. The abstract class,CityNode, represents all nodes 
+in the tree. CityPart reprsents a non-root/non-leaf node. It contains an arraylist of all of its child nodes. It's 
+find method takes a String parameter which is the nodes label and then recrusively traverses through the tree until 
+it finds the nodes with the matching label which it then returns. The getters getLabel() and getParent() simply 
+return the strings for the node's label and the label of it's parent node. The add and remove methods do exactly as their names imply by adding or removing from the CityPart node's arraylist of child nodes. getCityNode() will
+retrieve a node from the arraylist based on index. The displayInfo() method recursively traverses through the tree 
+until all nodes ar displayed. The displayTree method displays the nodes in tree format. The write() will write the 
+the current nodes details into the file in the filestream. Likewise for the CityLeaf, many of the abstract methods
+will repeat in the CityLeaf class however instead of returning all nodes in the arraylist, it would only return 
+it's own details as it represents a leaf node. This design shows for the most part that tree traversal is only 
+handled by the classes in the composite pattern. 
+
+The Input interface handles all matters regarding inputting data into the system 
+
+The Input interface handles all matters regarding inputting data into the system. The ReadInput subclass handles all
+the processing of the file so that a tree can be formed from the data in the csv file. The getNode() method returns
+the root node of that tree.
+
+The Output interfaces handles all matters regarding the different ways the data can be outputted. WriteOutput()
+takes in a string which is the filename and the tree's root node. doOutput then traverses through the tree, call
+each node's write method where their details will be written to the filename specified. DisplayOuput takes in an 
+empty string and the root node. It then outputs the entire tree in the format specified in the assignment spec.
+
+
+-------------Appropriate use of strategy pattern------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+I used the startegy pattern for both the input and the output. This way, depending on what the user chooses in the
+command line, the appropriate algorithm is used at runtime. In the case of Output, there are two strategies for
+output, one for writing to file and one for displaying on screen. For input, my intention was for one strategy to 
+read in the input and the other strategy would be generating the input. But I ran out of time before I could 
+implement the second strategy.
+
+
+------------Appropriate use of composite pattern------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+I used the composite pattern to represent a hierarchy of objects, in this case the aspects of a city grid. The 
+problem description itself defines the network as a tree, as such the composite pattern was the best choice to 
+represent such a structure. CityPart represents a part of the city and is a non-leaf node. CityLeaf represents the
+smallest most meaningful parts of the network. They both inherit from the common interface CityNode allowing me to
+treat the leaf and composite nodes the same way. CityPart aggregates CityNode which is what allows it to have child
+nodes of either type. 
